@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Unreal Estate</title>
+        <link rel="icon" type="image/png" href="img/favicon.png">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/vendor/bootstrap-select.css">
+        <link rel="stylesheet" href="css/vendor/slider.css">
+        <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+        <link rel="stylesheet" href="css/style.css">
+
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <header>
+
+        </header>
+        <section id='page-title'>
+            <section class='container'>
+                <section class='row'>
+                    <div class='span6'>
+                        <h1>Semantic Search Demo</h1>
+                        <p>Efficient AI search solution</p>
+                    </div>
+                </section>
+            </section>
+        </section>
+        <section id='main' role='main'>
+            <section class='container'>
+                <section class='row tab-finder'>
+                    <div class='span12'>
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs">
+                                <li class="active first-tab"><a href="#tab1" data-toggle="tab">Search</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab1">
+                                    <div class='inner'>
+                                        <form action="/" method="get">
+                                            <input type="text" name='keyword' class='search-string' placeholder="test search query"/>
+                                            <button type="submit" class='btn btn-primary search-property'><i class="icon-search icon-white"></i> Search</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </section>
+        {% if keyword!=''%}
+        <section class='container'>
+
+        <div class="row">
+            <div class="span6">
+
+            <section id='content_a'>
+                  <section class='container'>
+                      <section class='row featured-items'>
+                          <section class='span6'>
+                          <div class='row'>
+                              <div class='span6'>
+                                  <div class='top-bar'>
+                                      <div class='bar-title'>
+                                          <div class='inner'>
+                                              <div class='pull-left custom-margin'>
+                                                  <strong>1</strong> - <strong>20</strong> of <strong>{{results['hits']['total']['value']}}</strong> results for <strong>{{keyword}}</strong>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class='bar-bottom'>
+                                          <div class='inner'>
+                                              <div class='pull-left custom-margin'>
+                                                  <span class='text-line'>Sort by:</span>
+                                                  <select class='selectpicker'>
+                                                      <option value="relevance">Relevance</option>
+                                                      <option value="date">Date</option>
+                                                  </select>
+                                              </div>
+                                              <div class='pull-right view-type custom-margin'>
+
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          {% block content %}
+                        <div class='row'>
+                          {% for product in results['hits']['hits']%}
+
+                            <div class='span7 featured-item-wrapper featured-item-list'>
+                                <div class='featured-item featured-list'>
+                                    <div class='top'>
+                                        <div class='inner-border'>
+                                            <div class='inner-padding'>
+                                                <figure>
+                                                    <img src="#" alt="" />
+                                                </figure>
+                                                <div class='right'>
+                                                    <h3><a href="{{product._source.ProductUrl}}">{{ product._source.ProductName}}</a></h3>
+
+                                                    <div class='description'>
+                                                        <p>{{ product._source.Description}}</p>
+                                                    </div>
+                                                    <p>{{ product._source.Category}}</p>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class='bottom'>
+                                        <div class='inner-border'>
+                                            <div class='inner-padding'>
+                                                <p>
+                                                    <div class='price'>${{ product._source.Price}}</div>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </div>
+                              {% endfor %}
+                            </div>
+
+                        </div>
+
+                        {% endblock %}
+
+
+                          </section>
+
+                      </section>
+                  </section>
+              </section>
+            </div>
+          </div>
+        </div>
+        </section>
+        {% endif %}
+
+
+
+        <section id='sub-footer'>
+            <section class='container'>
+                <section class='row'>
+                    <div class='span6'>
+                        <div class='copyright'>
+                            <p>&copy; Developed by productsearch.ai <a href="https://productsearch.ai>TeoThemes</a></p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </section>
+
+        <script src="js/vendor/jquery-2.1.4.min.js"></script>
+        <script src="js/vendor/bootstrap.js"></script>
+        <script src="js/vendor/bootstrap-select.min.js"></script>
+        <script src="js/vendor/jquery.flexslider-min.js"></script>
+        <script src="js/vendor/bootstrap-slider.js"></script>
+        <script src="js/vendor/jquery.mCustomScrollbar.min.js"></script>
+        <script src="js/vendor/tinynav.min.js"></script>
+        <script src="js/vendor/jquery.placeholder.min.js"></script>
+        <script src="js/vendor/gmap3.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

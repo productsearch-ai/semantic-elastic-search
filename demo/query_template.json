@@ -1,0 +1,61 @@
+{
+      "from":"{{start}}",
+      "size":"{{size}}",
+      "query":{
+         "function_score":{
+            "query":{
+               "bool":{
+                  "must":[
+                     {
+                        "bool":{
+                           "should":[
+                              {
+                                 "simple_query_string":{
+                                    "fields":[
+                                       "ProductName",
+                                       "Description",
+                                       "Brand",
+                                       "Category"
+                                    ],
+                                    "query":"{{keywords}}",
+                                    "default_operator":"and"
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  ],
+                  "should":[
+                     {
+                        "multi_match":{
+                           "type":"most_fields",
+                           "query":"{{keywords}}",
+                           "fields":[
+                             "ProductName^100",
+                             "Description^50",
+                             "Brand^30",
+                             "Category^20"
+                           ]
+                        }
+                     },
+                     {
+                        "multi_match":{
+                           "type":"most_fields",
+                           "query":"{{keywords}}",
+                           "fields":[
+                             "ProductName^200",
+                             "Description^100",
+                             "Brand^30",
+                             "Category^20"
+                           ]
+                        }
+                     }
+                  ]
+               }
+            },
+             "score_mode": "sum",
+              "boost_mode": "sum",
+              "min_score": 0
+         }
+      }
+}
