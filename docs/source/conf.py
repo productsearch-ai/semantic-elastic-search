@@ -19,7 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'elasticsearch-semantic-search'
+project = u'semantic-elastic-search'
 copyright = u'2021, productsearch.ai'
 author = u'productsearch.ai'
 
